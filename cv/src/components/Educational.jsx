@@ -1,3 +1,5 @@
+import "../styles/educational.css";
+
 function Educational() {
   return (
     <div className="educational">
