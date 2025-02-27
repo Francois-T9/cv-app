@@ -14,6 +14,10 @@
 
   padding: 0;
   margin: 0;
+
+  --green: #798a73;
+  --white: #e0dac9;
+  --black: #3f403c;
 }
 
 a {
