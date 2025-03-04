@@ -1,4 +1,41 @@
 .educational {
   background-color: var(--white);
   color: var(--black);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.educational button {
+  background-color: var(--green);
+  width: 20em;
+}
+
+.education {
+  /* border: 1px solid var(--black); */
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  border: 2px solid var(--black);
+  padding: 10px;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+.education button {
+  grid-column: 2;
+  width: 10em;
+}
+.education h2,
+.education p {
+  grid-column: 1;
+}
+
+.education .display-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
