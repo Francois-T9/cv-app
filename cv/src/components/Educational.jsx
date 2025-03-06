@@ -1,41 +1,38 @@
 import "../styles/educational.css";
 import { useState } from "react";
 function Educational() {
+  // Variable containing the state of the form toggle
   const [openForm, setOpenForm] = useState(false);
-  const [schoolName, setSchoolName] = useState("");
-  const [location, setLocation] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [endYear, setEndYear] = useState("");
+
+  // Function setting openForm boolean to 0/1 depending on button click
+  const handleOpenForm = (e) => {
+    e.preventDefault();
+    setOpenForm(!openForm);
+  };
+  // Object containing the state of the form inputs
+
+  const [educationalForm, setEducationalForm] = useState({
+    schoolName: "",
+    location: "",
+    startYear: "",
+    endYear: "",
+    isDeleted: false,
+  });
+
+  // Function handling the changes on form input fields
+  const handleEducationalFormChange = (e) => {
+    const { name, value } = e.target;
+    setEducationalForm((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  // Variable containing the number of educational experiences that have been submitted
 
   const [numberEducational, setNumberEducational] = useState(0);
   const [educationList, setEducationList] = useState([]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // const [displaySchool, setDisplaySchool] = useState("");
-  // const [displayLocation, setDisplayLocation] = useState("");
-  // const [displayStartYear, setDisplayStartYear] = useState("");
-  // const [displayEndYear, setDisplayEndYear] = useState("");
-
-  const handleOpenForm = (e) => {
-    e.preventDefault();
-    setOpenForm(!openForm);
-  };
-
-  const handleSchoolNameChange = (e) => {
-    setSchoolName(e.target.value);
-  };
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-
-  const handleStartYearChange = (e) => {
-    setStartYear(e.target.value);
-  };
-  const handleEndYearChange = (e) => {
-    setEndYear(e.target.value);
-  };
-
+  // Function displaying educational section on submit
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -44,23 +41,36 @@ function Educational() {
       ...prevList,
       {
         id: `education-${numberEducational}`,
-        school: schoolName,
-        location: location,
-        startYear: startYear,
-        endYear: endYear,
+        school: educationalForm.schoolName,
+        location: educationalForm.location,
+        startYear: educationalForm.startYear,
+        endYear: educationalForm.endYear,
+        isDeleted: educationalForm.isDeleted,
       },
     ]);
     setNumberEducational(numberEducational + 1);
-
-    setSchoolName("");
-    setLocation("");
-    // setStartYear
+    resetEducationForm();
   };
 
-  const deleteEducatiionField = (array, index) => {
-    array.splice(index, 1);
-    console.log(array);
-    console.log(index);
+  const resetEducationForm = () => {
+    setEducationalForm((prevState) => ({
+      ...prevState,
+      schoolName: "",
+      location: "",
+      startYear: "",
+      endYear: "",
+    }));
+  };
+
+  // Delete educational section
+  const deleteEducationSection = (sectionToDelete) => {
+    setEducationList((prevList) =>
+      prevList.map((section) =>
+        section.id === sectionToDelete.id
+          ? { ...section, isDeleted: true }
+          : section
+      )
+    );
   };
 
   return (
@@ -76,8 +86,9 @@ function Educational() {
               School name{" "}
               <input
                 type="text"
-                value={schoolName}
-                onChange={handleSchoolNameChange}
+                name="schoolName"
+                value={educationalForm.schoolName}
+                onChange={handleEducationalFormChange}
                 required
               />
             </label>
@@ -85,8 +96,9 @@ function Educational() {
               Location{" "}
               <input
                 type="text"
-                value={location}
-                onChange={handleLocationChange}
+                name="location"
+                value={educationalForm.location}
+                onChange={handleEducationalFormChange}
                 required
               />
             </label>
@@ -95,8 +107,9 @@ function Educational() {
                 Start Date{" "}
                 <input
                   type="date"
-                  value={startYear}
-                  onChange={handleStartYearChange}
+                  name="startYear"
+                  value={educationalForm.startYear}
+                  onChange={handleEducationalFormChange}
                   required
                 />
               </label>
@@ -104,8 +117,9 @@ function Educational() {
                 End Date{" "}
                 <input
                   type="date"
-                  value={endYear}
-                  onChange={handleEndYearChange}
+                  name="endYear"
+                  value={educationalForm.endYear}
+                  onChange={handleEducationalFormChange}
                   required
                 />
               </label>
@@ -118,9 +132,10 @@ function Educational() {
         </div>
       )}
 
-      {
-        isSubmitted &&
-          educationList.map((education) => (
+      {isSubmitted &&
+        educationList
+          .filter((education) => !education.isDeleted)
+          .map((education) => (
             <div className="education" id={education.id} key={education.id}>
               <h2>{education.school}</h2>
               <h2>Location</h2>
@@ -132,32 +147,13 @@ function Educational() {
               </p>
               <button
                 onClick={() => {
-                  deleteEducatiionField(education, 0);
+                  deleteEducationSection(education);
                 }}
               >
                 Delete
               </button>
             </div>
-          ))
-
-        // <div className="education" id={`education-${numberEducational}`}>
-        //   <div className="information">
-        //     <h2>School name</h2>
-        //     <p>{displaySchool}</p>
-        //     <h2>Location</h2>
-        //     <p>{displayLocation}</p>
-        //     <h2>Duration</h2>
-        //     <p>
-        //       From <span>{displayStartYear}</span> To{" "}
-        //       <span>{displayEndYear}</span>
-        //     </p>
-        //   </div>
-        //   <div className="display-buttons">
-        //     <button>Edit</button>
-        //     <button>Delete</button>
-        //   </div>
-        // </div>
-      }
+          ))}
     </div>
   );
 }
