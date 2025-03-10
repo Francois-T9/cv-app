@@ -80,7 +80,7 @@ function Educational() {
         Add educational experience
       </button>
       {openForm && (
-        <div className="general-info-form">
+        <div className="educational-form">
           <form action="" onSubmit={handleSubmit}>
             <label htmlFor="">
               School name{" "}
