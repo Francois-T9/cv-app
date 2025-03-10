@@ -87,7 +87,8 @@ button:focus-visible {
 }
 
 .general form,
-.educational form {
+.educational form,
+.practical form {
   display: flex;
   flex-direction: column;
 
@@ -98,7 +99,8 @@ button:focus-visible {
 }
 
 .general input,
-.educational input {
+.educational input,
+.practical input {
   border-radius: 10px;
   padding: 5px;
   background-color: var(--white);
