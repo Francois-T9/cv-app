@@ -8,5 +8,5 @@
 
 .practical button {
   background-color: var(--green);
-  width: 20em;
+  /* width: 20em; */
 }
