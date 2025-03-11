@@ -32,7 +32,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -86,6 +86,11 @@ button:focus-visible {
   font-size: 12px;
 }
 
+.general {
+  display: flex;
+  /* align-items: center; */
+}
+
 .general form,
 .educational form,
 .practical form {
@@ -108,4 +113,67 @@ button:focus-visible {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   /* font-family: inherit; */
+}
+
+.general img {
+  width: 7em;
+  height: 7em;
+}
+
+#root label {
+  width: 10em;
+}
+
+.educational-date,
+.practical-date {
+  display: flex;
+}
+.education {
+  /* border: 1px solid var(--black); */
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  border: 2px solid var(--black);
+  padding: 10px;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+/* Mobile styling */
+
+@media (max-width: 430px) {
+  #root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  #root h2 {
+    font-size: 3em;
+    width: 10em;
+  }
+  #root p,
+  label {
+    font-size: 2em;
+  }
+
+  #root form label {
+    font-size: 2em;
+  }
+
+  button {
+    font-size: 2em;
+    width: 10em;
+  }
+
+  .educational-date,
+  .practical-date {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .education,
+  .practical {
+    display: flex;
+    flex-direction: column;
+  }
 }
