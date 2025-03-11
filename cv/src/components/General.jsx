@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/general.css";
-
+import profileImage from "../assets/profile-circle-svgrepo-com.svg";
 function General() {
   // Object containing the state of input fields of the form
   const [generalForm, setGeneralForm] = useState({
@@ -29,9 +29,9 @@ function General() {
 
   // Displaying object based on user inputs and submit
   const [displayForm, setDisplayForm] = useState({
-    displayName: "",
-    displayEmail: "",
-    displayPhone: "",
+    displayName: "John Doe",
+    displayEmail: "example@xyz.com",
+    displayPhone: "(55)123456789",
   });
 
   const handleSubmit = (e) => {
@@ -44,6 +44,15 @@ function General() {
       displayPhone: generalForm.phone,
     }));
   };
+
+  // const defaultPerson = () => {
+  //   setDisplayForm((prevState) => ({
+  //     ...prevState,
+  //     displayName: "John Doe",
+  //     displayEmail: "example@xyz.com",
+  //     displayPhone: "(55)123456789",
+  //   }));
+  // };
 
   return (
     <div className="general">
@@ -96,7 +105,7 @@ function General() {
           </form>
         </div>
       )}
-
+      <img src={profileImage} alt="" />
       <h2>Full name</h2>
       <p>{displayForm.displayName}</p>
       <h2>Email</h2>
