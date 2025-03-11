@@ -25,7 +25,17 @@ function Practical() {
   };
 
   // Array that stocks Practical objects
-  const [practicalObjectList, setPracticalObjectList] = useState([]);
+  const [practicalObjectList, setPracticalObjectList] = useState([
+    {
+      id: `practical-0`,
+      companyName: "Meta",
+      companyLocation: "Silicon Valley",
+      startDate: "2014",
+      endDate: "2017",
+      isDeleted: false,
+      isDefault: true,
+    },
+  ]);
 
   // State that hold the number of displayed practical fields
   const [numberPractical, setNumberPractical] = useState(0);
@@ -130,6 +140,27 @@ function Practical() {
           </form>
         </div>
       )}
+
+      {practicalObjectList[0].isDefault &&
+        !practicalObjectList[0].isDeleted && (
+          <div className="education" id={0} key={0}>
+            <h2>{practicalObjectList[0].companyName}</h2>
+            <h2>Location</h2>
+            <p>{practicalObjectList[0].companyLocation}</p>
+            <h2>Duration</h2>
+            <p>
+              From <span>{practicalObjectList[0].startDate.split("-")[0]}</span>{" "}
+              To <span>{practicalObjectList[0].endDate.split("-")[0]}</span>
+            </p>
+            <button
+              onClick={() => {
+                deletePracticalField(practicalObjectList[0]);
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        )}
       {isSubmitted &&
         practicalObjectList
           .filter((practical) => !practical.isDeleted)

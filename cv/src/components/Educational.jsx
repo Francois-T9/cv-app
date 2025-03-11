@@ -27,8 +27,18 @@ function Educational() {
 
   // Variable containing the number of educational experiences that have been submitted
 
-  const [numberEducational, setNumberEducational] = useState(0);
-  const [educationList, setEducationList] = useState([]);
+  const [numberEducational, setNumberEducational] = useState(1);
+  const [educationList, setEducationList] = useState([
+    {
+      id: `education-0`,
+      school: "Toulouse Business School",
+      location: "Toulouse",
+      startYear: "2017",
+      endYear: "2022",
+      isDeleted: false,
+      isDefault: true,
+    },
+  ]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -46,6 +56,7 @@ function Educational() {
         startYear: educationalForm.startYear,
         endYear: educationalForm.endYear,
         isDeleted: educationalForm.isDeleted,
+        isDefault: false,
       },
     ]);
     setNumberEducational(numberEducational + 1);
@@ -64,6 +75,7 @@ function Educational() {
 
   // Delete educational section
   const deleteEducationSection = (sectionToDelete) => {
+    console.log(sectionToDelete);
     setEducationList((prevList) =>
       prevList.map((section) =>
         section.id === sectionToDelete.id
@@ -129,6 +141,26 @@ function Educational() {
             {/* <button onClick={handleSubmit}>Submit</button> */}
             <button onClick={handleOpenForm}>Close form</button>
           </form>
+        </div>
+      )}
+
+      {educationList[0].isDefault && !educationList[0].isDeleted && (
+        <div className="education" id={0} key={0}>
+          <h2>{educationList[0].school}</h2>
+          <h2>Location</h2>
+          <p>{educationList[0].location}</p>
+          <h2>Duration</h2>
+          <p>
+            From <span>{educationList[0].startYear.split("-")[0]}</span> To{" "}
+            <span>{educationList[0].endYear.split("-")[0]}</span>
+          </p>
+          <button
+            onClick={() => {
+              deleteEducationSection(educationList[0]);
+            }}
+          >
+            Delete
+          </button>
         </div>
       )}
 
